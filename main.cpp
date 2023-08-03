@@ -5,16 +5,14 @@ template <typename T>
 struct Node {
 	T value;
 	Node* next = nullptr;
-	Node* previous = nullptr;
 };
 
 template <typename T>
 class Forward_List {
 	Node<T>* head;
-	Node<T>* end;
 
 public:
-	Forward_List() : head(nullptr), end(nullptr) {};
+	Forward_List() : head(nullptr) {};
 	void add_front(Node<T>* item) {
 		item->next = head;
 		head = item;
