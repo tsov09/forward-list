@@ -126,6 +126,13 @@ public:
 		}
 		return false;
 	}
+	T last() {
+		Node<T>* temp = head;
+		while (temp->next != nullptr) {
+			temp = temp->next;
+		}
+		return temp->value;
+	}
 	void print() {
 		if (head == nullptr) {
 			cout << "Forward list is empty." << endl;
@@ -141,6 +148,19 @@ public:
 	}
 };
 
+template <typename T>
+class Stack : private Forward_List<T> {
+public:
+	void push(Node<T>* item) {
+		this->push_back(item);
+	}
+	void pop() {
+		this->pop_back();
+	}
+	T top() {
+		return this->last();
+	}
+};
 
 void checking_forward_list() {
 	Node<int>* n_1 = new Node<int>;
@@ -204,6 +224,7 @@ void checking_forward_list() {
 	}
 	cout << endl;
 
+	cout << "End: " << list->last() << endl;
 
 	list->push_back(n_2);
 	cout << "Checking if forward list is cycled after push_back(...) element which already exists in list." << endl;
@@ -215,11 +236,27 @@ void checking_forward_list() {
 		cout << "Forward list isn't cycled." << endl;
 	}
 
+
 	delete n_1, n_2, n_3, n_4, list;
 
 }
 
 int main() {
-	checking_forward_list();
+	//checking_forward_list();
+	Node<int>* node = new Node<int>();
+	node->value = 27;
+
+	Node<int>* n_1 = new Node<int>;
+	n_1->value = 64;
+
+	Stack<int>* stack = new Stack<int>();
+
+	stack->push(node);
+	cout << "Top: " << stack->top() << endl;
+	stack->push(n_1);
+	cout << "Top: " << stack->top() << endl;
+	stack->pop();
+	cout << "Top: " << stack->top() << endl;
+
 	return 0;
 }
