@@ -133,6 +133,9 @@ public:
 		}
 		return temp->value;
 	}
+	T first() {
+		return head->value;
+	}
 	void print() {
 		if (head == nullptr) {
 			cout << "Forward list is empty." << endl;
@@ -158,6 +161,24 @@ public:
 		this->pop_back();
 	}
 	T top() {
+		return this->last();
+	}
+};
+
+template <typename T>
+class Queue : private Forward_List<T> {
+public:
+	void enqueue(Node<T>* item) {
+		this->add_front(item);
+
+	}
+	void pop() {
+		this->pop_back();
+	}
+	T front() {
+		return this->first();
+	}
+	T back() {
 		return this->last();
 	}
 };
@@ -249,14 +270,33 @@ int main() {
 	Node<int>* n_1 = new Node<int>;
 	n_1->value = 64;
 
+	Node<int>* n_2 = new Node<int>;
+	n_2->value = 158;
+
 	Stack<int>* stack = new Stack<int>();
 
+	cout << "Stack:" << endl;
 	stack->push(node);
-	cout << "Top: " << stack->top() << endl;
+	cout << "Top after push(...) 27: " << stack->top() << endl;
 	stack->push(n_1);
-	cout << "Top: " << stack->top() << endl;
+	cout << "Top after push(...) 64: " << stack->top() << endl;
 	stack->pop();
-	cout << "Top: " << stack->top() << endl;
+	cout << "Top after pop(): " << stack->top() << endl;
+	cout << "-----------------" << endl;
 
+	cout << "Queue after push(...) 27 then 64 then 158:" << endl;
+	Queue<int>* queue = new Queue<int>();
+	queue->enqueue(node);
+	queue->enqueue(n_1);
+	queue->enqueue(n_2);
+
+	cout << "Front: " << queue->front() << endl;
+	cout << "Back: " << queue->back() << endl;
+	queue->pop();
+
+
+	cout << "Queue after pop():" << endl;
+	cout << "Front: " << queue->front() << endl;
+	cout << "Back: " << queue->back() << endl;
 	return 0;
 }
